@@ -13,11 +13,21 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
-});
 
-$router->get('/users', function () use ($router) {
-    return $router->app->version();
-});
+$router->get('/', ['as' => 'home', function () {
+    return view('index');
+}]);
+
+$router->get('users', ['as' => 'users', function () {
+    return view('users');
+
+}]);
+
+
+$router->get('users/list', ['as' => 'usersList', 'uses' => "UserController@show"]);
+
+$router->post('users/add', ['as' => 'usersAdd', 'uses' => "UserController@add"]);
+$router->get('users/list/{id}', ['as' => 'usersShowOne', 'uses' => "UserController@showOne"]);
+$router->put('users/update/{id}', ['as' => 'usersUpdate', 'uses' => "UserController@update"]);
+$router->delete('users/delete/{id}', ['as' => 'userDelete', 'uses' => "UserController@delete"]);
 
